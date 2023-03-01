@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/<version tag>/showdown.min.js"></script>
+    <script src="https://cdn.rawgit.com/showdownjs/showdown/<version tag>/dist/showdown.min.js"></script>
+
+
+    <link href="css/font-awesome.min.css?v=4.4.0" rel="stylesheet" />
+    <link href="css/style.css?v=4.1.0" rel="stylesheet" />
+    <link href="css/plugins/jsTree/style.min.css" rel="stylesheet">
+    <!-- 全局js -->
+    <script src="./js/jquery.min.js?v=2.1.4"></script>
+    <script src="./js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- jsTree plugin javascript -->
+    <script src="js/plugins/jsTree/jstree.js"></script>
+</head>
+
+<body>
+
+    <div id="mySidenav" class="sidenav">
+        <div class="ibox-content">
+            文件
+        </div>
+        <div class="ibox-content">
+            <div id="using_json"></div>
+        </div>
+        <div class="col-sm-12">
+            <div class="ibox-title choose-file" style="text-align: center;">
+                <a style="width:100%;" class="open-folder">打开文件夹</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="main">
+
+        <div style="width: 100vw; background-color:rgb(151, 220, 197)">
+            <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+
+
+        </div>
+
+        <div>
+            <div style="width:80vw; background-color:rgb(79, 183, 199); display: inline-block; border-radius: 20px;">
+                <h1>我是标题</h1>
+            </div>
+            <div style="width:15vw; display: inline-block; background-color:rgb(136, 220, 91)">asd</div>
+        </div>
+    </div>
+
+
+    <script>
+        // jstree的视图
+        let jsTree = document.getElementById('jstree1')
+        $(jsTree).jstree({
+            'core': {
+                'check_callback': true
+            },
+            'plugins': ['types', 'dnd'],
+            'types': {
+                'default': {
+                    'icon': 'fa fa-folder'
+                },
+                'html': {
+                    'icon': 'fa fa-file-code-o'
+                },
+                'svg': {
+                    'icon': 'fa fa-file-picture-o'
+                },
+                'css': {
+                    'icon': 'fa fa-file-code-o'
+                },
+                'img': {
+                    'icon': 'fa fa-file-image-o'
+                },
+                'js': {
+                    'icon': 'fa fa-file-text-o'
+                }
+
+            }
+        });
+
+        //jsTree的文件夹json数据（本来使用readFiles函数读取返回，但是浏览器端无法使用fs模块）
+        let filesName = [{
+                'text': 'html',
+                'children': [{
+                    'text': 'tom.js',
+                    'icon': 'fa fa-file-text-o'
+                }]
+            }, {
+                'text': 'javascript',
+                'children': [{
+                    'text': 'css',
+                    'children': [{
+                        'text': 'animate.css',
+                        'icon': 'fa fa-file-text-o'
+                    }],
+                    'state': {
+                        'opened': true
+                    }
+                }, {
+                    'text': 'js',
+                    'children': [{
+                        'text': 'bootstrap.js',
+                        'icon': 'fa fa-file-text-o'
+                    }, {
+                        'text': 'hplus.min.js',
+                        'icon': 'fa fa-file-text-o'
+                    }],
+                }]
+            },
+            'css'
+        ]
+
+        let jsonTree = document.querySelector('#using_json')
+        $(jsonTree).jstree({
+            'core': {
+                'data': filesName
+            }
+        });
+
+
+        let openAndClose = 0;
+        //显示和隐藏侧边栏
+        function openNav() {
+            if (openAndClose === 0) {
+                document.getElementById("mySidenav").style.width = "250px";
+                document.getElementById("main").style.marginLeft = "250px";
+                openAndClose = 1
+            } else if (openAndClose === 1) {
+                document.getElementById("mySidenav").style.width = "0";
+                document.getElementById("main").style.marginLeft = "0";
+                openAndClose = 0
+            }
+        };
+    </script>
+
+    <style>
+        .sidenav {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.5s;
+        }
+        
+        .sidenav .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+        
+        .choose-file {
+            width: 250px;
+            position: absolute;
+            left: 0px;
+            bottom: 0px;
+            padding: 4px;
+        }
+        
+        .choose-file a {
+            height: 40px;
+            line-height: 40px;
+            padding: auto;
+        }
+        
+        .choose-file a:hover {
+            color: rgb(82, 124, 192);
+        }
+        
+        #main {
+            transition: margin-left .5s;
+            padding: 20px;
+        }
+        
+        @media screen and (max-height: 450px) {
+            .sidenav {
+                padding-top: 15px;
+            }
+            .sidenav a {
+                font-size: 18px;
+            }
+        }
+    </style>
+</body>
+
+</html>

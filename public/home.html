@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CyberNotebook</title>
+
+    <link href="css/bootstrap.min.css?v=3.3.7" rel="stylesheet" />
+    <link href="css/font-awesome.min.css?v=4.4.0" rel="stylesheet" />
+    <link href="css/style.css?v=4.1.0" rel="stylesheet" />
+    <link href="css/plugins/jsTree/style.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/plugins/markdown/bootstrap-markdown.min.css" />
+    <!-- 全局js -->
+    <script src="./js/jquery.min.js?v=2.1.4"></script>
+    <script src="./js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="./js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- jsTree plugin javascript -->
+    <script src="js/plugins/jsTree/jstree.js"></script>
+    <!-- 自定义js -->
+    <script src="js/hplus.js"></script>
+    <script type="module" src="/main.js"></script>
+    <!-- simditor -->
+    <script type="text/javascript" src="js/plugins/markdown/markdown.js"></script>
+    <script type="text/javascript" src="js/plugins/markdown/to-markdown.js"></script>
+    <script type="text/javascript" src="js/plugins/markdown/bootstrap-markdown.js"></script>
+    <script type="text/javascript" src="js/plugins/markdown/bootstrap-markdown.zh.js"></script>
+
+
+</head>
+
+<body class="fixed-sidebar full-height-layout gray-bg" style="overflow: hidden;">
+    <div id="wrapper">
+        <!--左侧导航开始-->
+        <nav class="navbar-static-side">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <div class="ibox-tools" style="text-align: center;">
+                                <p style="width:100%;">hello,<label id="username"></label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp文件</p>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <div id="using_json"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="ibox-title choose-file" style="text-align: center;">
+                        <a style="width:100%;" class="open-folder">打开文件夹</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <!--左侧导航结束-->
+
+        <!--右侧部分开始-->
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+            <!-- 顶端主题栏 -->
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0;">
+                    <div class="navbar-header">
+                        <!-- navbar-minimalize -->
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary close-left-bar" href="#"><i class="fa fa-bars"></i></a>
+                    </div>
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li class="dropdown hidden-xs">
+                            <a class="right-sidebar-toggle" aria-expanded="false"> <i class="fa fa-tasks"></i> 主题 </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <!-- markdown页面 -->
+            <div class="row J_mainContent" id="content-main">
+                <!-- <iframe class="J_iframe" name="iframe0" width="80%" height="100%" src="form_markdown.html?v=4.1" frameborder="0" data-id="form_markdown.html" seamless></iframe> -->
+
+                <div class="col-lg-10">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5 class="change-title" onClick="edit(this)">我是一个标题</h5>
+                            <div class="ibox-tools">
+                                <button onclick="moveUp()">
+                                        <!-- 上移输入框 -->
+                                        <img src="./img/up.png" />
+                                    </button>
+                                <button onclick="moveDown()">
+                                        <!-- 下移输入框 -->
+                                        <img src="./img/down.png" />
+                                    </button>
+                                <button onclick="createUp()">
+                                        <!-- 上面新建输入框 -->
+                                        <img src="./img/new-up.png" />
+                                    </button>
+                                <button>
+                                        <!-- 下方新建输入框 -->
+                                        <img src="./img/new-down.png" />
+                                    </button>
+                                <button onclick="deleteActive()">
+                                        <!-- 删除当前输入框 -->
+                                        <img src="./img/delete.png" />
+                                    </button>
+                            </div>
+                        </div>
+
+                        <div class="ibox-content" style="height: 70vh;overflow-y:scroll;background:#EEEEEE;">
+                            <div class="click-markdown">
+                                <textarea name="content" data-provide="markdown" rows="6">1</textarea>
+                                <textarea name="content" data-provide="markdown" rows="6">2</textarea>
+                                <textarea name="content" data-provide="markdown" rows="6">3</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 文件信息 -->
+                <div class="col-lg-2">
+                    <div class="markdown-detail">当前选中的Cell：<span class="activeNum">1</span></div>
+                </div>
+            </div>
+
+        </div>
+        <!--右侧部分结束-->
+
+        <!--右侧边栏开始-->
+        <div id="right-sidebar">
+            <div class="sidebar-container">
+                <ul class="nav nav-tabs navs-3">
+                    <li class="active">
+                        <a data-toggle="tab" href="#tab-1"> <i class="fa fa-gear"></i> 主题 </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div id="tab-1" class="tab-pane active">
+                        <div class="skin-setttings">
+                            <div class="setings-item default-skin nb">
+                                <span class="skin-name">
+                                    <a href="#" class="s-skin-0">
+                                        默认皮肤
+                                    </a>
+                                </span>
+                            </div>
+                            <div class="setings-item blue-skin nb">
+                                <span class="skin-name">
+                                    <a href="#" class="s-skin-1">
+                                        蓝色主题
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--右侧边栏结束-->
+    </div>
+
+    <script>
+        function loadJs(file) {
+            var head = $("head").remove("script[role='reload']");
+            $("<scri" + "pt>" + "</scr" + "ipt>").attr({
+                role: 'reload',
+                src: file,
+                type: 'text/javascript'
+            }).appendTo(head);
+        }
+
+        let change_title = document.querySelector('.change-title');
+        let click_markdown = document.querySelector('.click-markdown');
+        let activeNum = document.querySelector('.activeNum')
+
+        //记录当前点击的cell的下标
+        let activeNode = 0
+
+        //初始化编辑器
+        let markDownObj = $("#editor").markdown({
+            autofocus: true, //编辑器实例化之后自动聚焦操作
+            savable: false //编辑器实例化之后有保存按钮 这里不需要 设置为false
+        })
+
+
+        //点击输入框获取当前点击的输入框的下标赋值给activeNode
+        click_markdown.addEventListener('click', function() {
+            for (let i = 0; i < click_markdown.children.length; i++) {
+                if (click_markdown.children[i].classList.contains('active')) {
+                    activeNode = i;
+                    console.log("当前点击的输入框的下标为:" + activeNode);
+                }
+            }
+            activeNum.innerHTML = activeNode
+        });
+
+
+
+        //上方新建
+        function createUp() {
+            console.log("上方新建");
+            let newCell = click_markdown.children[0].cloneNode(true)
+            click_markdown.appendChild(newCell)
+        }
+
+        //删除当前cell
+        function deleteActive() {
+            alert("删除当前cell")
+            click_markdown.removeChild(click_markdown.children[activeNode])
+
+            for (let i = 0; i < click_markdown.children.length; i++) {
+                click_markdown.children[i].addEventListener('click', function() {
+                    for (let j = 0; j < click_markdown.children.length; j++) {
+                        click_markdown.children[j].classList.add('md-editor')
+                    }
+                    this.classList.add('active')
+                })
+            }
+        }
+
+
+        //双击修改标题
+        function edit(element) {
+            let titleEditing = false;
+            console.log(titleEditing)
+            if (titleEditing) {
+                return
+            }
+            titleEditing = true
+            let old = element.innerHTML
+            element.innerHTML = ""
+            var newObj = document.createElement("input")
+            newObj.className = "textArea"
+            newObj.value = old
+            element.append(newObj)
+            newObj.focus()
+            newObj.onblur = function() {
+                element.innerHTML = this.value ? this.value : old
+                titleEditing = false
+            }
+        };
+
+        //上移cell
+        function moveUp() {
+            // alert('点击了上移')
+            if (activeNode === 0) {
+                console.log("当前是第一个元素");
+                return
+            }
+            click_markdown.insertBefore(click_markdown.children[activeNode], click_markdown.children[activeNode - 1])
+            activeNode--;
+            activeNum.innerHTML = activeNode;
+        };
+
+        //下移cell
+        function moveDown() {
+            if (activeNode === click_markdown.children.length - 1) {
+                console.log("当前是最后一个元素");
+                return
+            }
+            click_markdown.insertBefore(click_markdown.children[activeNode], click_markdown.children[activeNode + 2])
+            activeNode++;
+            activeNum.innerHTML = activeNode;
+        };
+    </script>
+
+    <style>
+        .choose-file {
+            width: 220px;
+            position: fixed;
+            _position: absolute;
+            left: 0px;
+            bottom: 0px;
+            padding: 4px;
+        }
+        
+        .choose-file a {
+            height: 40px;
+            line-height: 40px;
+            padding: auto;
+        }
+        
+        .choose-file a:hover {
+            color: black;
+        }
+        
+        .markdown-detail {
+            background-color: rgb(231, 238, 238);
+            height: 100%;
+        }
+    </style>
+</body>
+<script>
+    // alert(window.location.search);
+    let index = window.location.search.indexOf("?");
+    index++;
+    // let userInfo = window.location.search.substring(index);
+    console.log(window.location.search.substring(index));
+    let username_ = window.location.search.substring(index).split("&")[0].substring(window.location.search.substring(index).indexOf("=") + 1);
+    username.innerText=username_;
+</script>
+</html>
