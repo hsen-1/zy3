@@ -214,7 +214,7 @@ export default {
                 let m = 0;
                 // debugger;
                 this.$axios({
-                    url: "http://localhost:3000/users",
+                    url: "https://db-api.amarea.cn/users",
                     method: "GET",
                     data: {
                         // id: this.username,
@@ -239,7 +239,7 @@ export default {
                     })
                 if (m == 0) {
                     this.$axios({
-                        url: "http://localhost:3000/users",
+                        url: "https://db-api.amarea.cn/users",
                         method: "POST",
                         data: {
                             id: this.id,
