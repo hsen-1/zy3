@@ -168,8 +168,8 @@ export default {
         },
         login: function (e) {
             this.$axios({
-                // url: "https://db-api.amarea.cn/users",
-                url: "http://localhost:3000/users",
+                url: "https://db-api.amarea.cn/users",
+                // url: "http://localhost:3000/users",
                 method: "GET",
                 data: {
                     // id: this.username,
